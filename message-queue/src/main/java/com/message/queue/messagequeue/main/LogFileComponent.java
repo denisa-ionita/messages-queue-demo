@@ -27,7 +27,7 @@ public class LogFileComponent {
 
             writer.write("[" + timeLog + "]" + System.lineSeparator());
             for(Item item: items){
-                writer.write("Item-ul " + item.getName() + " a fost achizitionat la pretul " + item.getPrice() + System.lineSeparator());
+                writer.write("Item-ul " + item.getName() + " a fost achizitionat " + System.lineSeparator());
             }
         } catch (Exception e) {
             e.printStackTrace();
