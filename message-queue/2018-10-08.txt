@@ -1,0 +1,9 @@
+Item-ul produs a fost achizitionat astazi de 10 ori. 
+Item-ul altceva a fost achizitionat astazi de 30 ori. 
+Item-ul produsnou1 a fost achizitionat astazi de 2 ori. 
+Item-ul produs2 a fost achizitionat astazi de 10 ori. 
+Item-ul produsnou a fost achizitionat astazi de 7 ori. 
+Item-ul ceva a fost achizitionat astazi de 10 ori. 
+Item-ul ceva24 a fost achizitionat astazi de 6 ori. 
+Item-ul ceva2 a fost achizitionat astazi de 10 ori. 
+Item-ul ceva23 a fost achizitionat astazi de 4 ori. 

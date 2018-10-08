@@ -1,0 +1,98 @@
+[2018-10-07 22:27:58]
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+[2018-10-07 22:30:28]
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+[2018-10-08 13:44:10]
+Item-ul ceva2 a fost achizitionat la pretul 0.0
+Item-ul ceva2 a fost achizitionat la pretul 0.0
+Item-ul ceva2 a fost achizitionat la pretul 0.0
+Item-ul ceva2 a fost achizitionat la pretul 0.0
+Item-ul ceva2 a fost achizitionat la pretul 0.0
+Item-ul ceva2 a fost achizitionat la pretul 0.0
+Item-ul ceva2 a fost achizitionat la pretul 0.0
+Item-ul ceva2 a fost achizitionat la pretul 0.0
+Item-ul ceva2 a fost achizitionat la pretul 0.0
+Item-ul ceva2 a fost achizitionat la pretul 0.0
+[2018-10-08 13:50:53]
+Item-ul ceva a fost achizitionat la pretul 0.0
+Item-ul ceva a fost achizitionat la pretul 0.0
+Item-ul ceva a fost achizitionat la pretul 0.0
+Item-ul ceva a fost achizitionat la pretul 0.0
+Item-ul ceva a fost achizitionat la pretul 0.0
+Item-ul ceva a fost achizitionat la pretul 0.0
+Item-ul ceva a fost achizitionat la pretul 0.0
+Item-ul ceva a fost achizitionat la pretul 0.0
+Item-ul ceva a fost achizitionat la pretul 0.0
+Item-ul ceva a fost achizitionat la pretul 0.0
+[2018-10-08 13:57:58]
+Item-ul produs2 a fost achizitionat la pretul 0.0
+Item-ul produs2 a fost achizitionat la pretul 0.0
+Item-ul produs2 a fost achizitionat la pretul 0.0
+Item-ul produs2 a fost achizitionat la pretul 0.0
+Item-ul produs2 a fost achizitionat la pretul 0.0
+Item-ul produs2 a fost achizitionat la pretul 0.0
+Item-ul produs2 a fost achizitionat la pretul 0.0
+Item-ul produs2 a fost achizitionat la pretul 0.0
+Item-ul produs2 a fost achizitionat la pretul 0.0
+Item-ul produs2 a fost achizitionat la pretul 0.0
+[2018-10-08 14:06:49]
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+Item-ul altceva a fost achizitionat la pretul 0.0
+[2018-10-08 14:29:47]
+Item-ul produs a fost achizitionat la pretul 0.0
+Item-ul produs a fost achizitionat la pretul 0.0
+Item-ul produs a fost achizitionat la pretul 0.0
+Item-ul produs a fost achizitionat la pretul 0.0
+Item-ul produs a fost achizitionat la pretul 0.0
+Item-ul produs a fost achizitionat la pretul 0.0
+Item-ul produs a fost achizitionat la pretul 0.0
+Item-ul produs a fost achizitionat la pretul 0.0
+Item-ul produs a fost achizitionat la pretul 0.0
+Item-ul produs a fost achizitionat la pretul 0.0
+[2018-10-08 14:33:45]
+Item-ul ceva23 a fost achizitionat la pretul 0.0
+Item-ul ceva23 a fost achizitionat la pretul 0.0
+Item-ul ceva23 a fost achizitionat la pretul 0.0
+Item-ul ceva23 a fost achizitionat la pretul 0.0
+Item-ul ceva24 a fost achizitionat la pretul 0.0
+Item-ul ceva24 a fost achizitionat la pretul 0.0
+Item-ul ceva24 a fost achizitionat la pretul 0.0
+Item-ul ceva24 a fost achizitionat la pretul 0.0
+Item-ul ceva24 a fost achizitionat la pretul 0.0
+Item-ul ceva24 a fost achizitionat la pretul 0.0
+[2018-10-08 14:35:33]
+Item-ul produsnou a fost achizitionat la pretul 0.0
+Item-ul produsnou a fost achizitionat la pretul 0.0
+Item-ul produsnou a fost achizitionat la pretul 0.0
+Item-ul produsnou a fost achizitionat la pretul 0.0
+Item-ul produsnou a fost achizitionat la pretul 0.0
+Item-ul produsnou a fost achizitionat la pretul 0.0
+Item-ul produsnou a fost achizitionat la pretul 0.0
+Item-ul produsnou1 a fost achizitionat la pretul 0.0
+Item-ul produsnou1 a fost achizitionat la pretul 0.0
