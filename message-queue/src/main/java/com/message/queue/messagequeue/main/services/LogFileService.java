@@ -19,16 +19,50 @@ public class LogFileService {
         itemsMap = new HashMap<>();
     }
 
-    public void writeLogFile(List<Item> items){
+//    public void writeLogFile(List<Item> items){
+//        BufferedWriter writer = null;
+//        try {
+//            String timeLog = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+//
+//            writer = new BufferedWriter(new FileWriter(file, true));
+//
+//            writer.write("[" + timeLog + "]" + System.lineSeparator());
+//            for(Item item: items){
+//                writer.write("Item-ul " + item.getName() + " a fost achizitionat " + System.lineSeparator());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                writer.close();
+//            } catch (Exception e) {
+//            }
+//        }
+//    }
+
+    public void writeLogFile(Queue<Item> itemsQueue){
         BufferedWriter writer = null;
+        Integer counter = 0;
+        StringBuilder stringBuilder = null;
+
         try {
             String timeLog = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
             writer = new BufferedWriter(new FileWriter(file, true));
 
-            writer.write("[" + timeLog + "]" + System.lineSeparator());
-            for(Item item: items){
-                writer.write("Item-ul " + item.getName() + " a fost achizitionat " + System.lineSeparator());
+            for(Item item: itemsQueue){
+
+                if(counter == 10){
+                    writer.write(stringBuilder.toString());
+                    stringBuilder = null;
+                    stringBuilder.append("[" + timeLog + "]" + System.lineSeparator());
+                    counter = 0;
+                    System.out.println("Se scriu 10 msg in fisierul de log-uri.");
+                }
+
+                stringBuilder.append("Item-ul " + item.getName() + " a fost achizitionat la pretul " + item.getPrice() + System.lineSeparator());
+                counter++;
+                itemsQueue.remove();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,6 +73,7 @@ public class LogFileService {
             }
         }
     }
+
 
     public Set<String> findDuplicates(List<Item> listContainingDuplicates)
     {

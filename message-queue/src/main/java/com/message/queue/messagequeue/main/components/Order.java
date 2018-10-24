@@ -11,10 +11,12 @@ public class Order {
 
     Map<Item, Integer> orderMap;
     Date orderDate;
+    Customer customer;
 
-    public Order() {
+    public Order(Customer customer) {
         orderMap = new HashMap<>();
         orderDate = new Date();
+        this.customer = customer;
     }
 
     public Map<Item, Integer> getOrderMap() {
@@ -23,6 +25,10 @@ public class Order {
 
     public Date getOrderDate() {
         return orderDate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     public void addNewItemToOrder(Item item){
