@@ -74,98 +74,104 @@ public class LogFileService {
         }
     }
 
+    public void writeOrderMapFileLog(Map<Long, List<Item>> orderMap){
 
-    public Set<String> findDuplicates(List<Item> listContainingDuplicates)
-    {
-        Set<String> setToReturn = new HashSet();
-
-        for (Item item : listContainingDuplicates)
-        {
-            setToReturn.add(item.getName());
-        }
-
-
-        return setToReturn;
     }
 
-    public void readLogFile(){
-
-        List<Item> itemsExtractedFromLogFile = new ArrayList<>();
-
-        BufferedReader reader = null;
-        try{
-            reader = new BufferedReader(new FileReader(file));
-
-            String line;
-            Item newItemExtracted;
-            String[] itemsOfCurrentLine;
-            int lineNumber = 1;
-
-            while ((line = reader.readLine()) != null){
-
-                if(lineNumber%11 != 1) {
-                    System.out.println("Line no: " + lineNumber);
-                    itemsOfCurrentLine = line.split(" ");
-                    newItemExtracted = new Item();
-
-                    newItemExtracted.setName(itemsOfCurrentLine[1]);
-
-                    itemsExtractedFromLogFile.add(newItemExtracted);
-                }
-                else
-                {
-                    System.out.println("Procesare coada de 10 msg");
-                }
-
-                lineNumber++;
-            }
-
-            System.out.println("itemsFromLogFIle: " + itemsExtractedFromLogFile.size());
-
-            Set<String> distinctItems = findDuplicates(itemsExtractedFromLogFile);
-
-            System.out.println("distinctItems no: "+distinctItems.size());
-
-            for(String distinctItem: distinctItems){
-
-                System.out.println("Distinct item: "+distinctItem);
-                int number = 0;
-                for(Item item: itemsExtractedFromLogFile){
-                    if(item.getName().compareTo(distinctItem) == 0)
-                        number++;
-                }
-                itemsMap.put(new Item(distinctItem, 0), number);
-
-            }
+    // to be updated
 
 
-
-    } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void createDailySystemStatus(){
-        BufferedWriter dailySystemStatusWriter = null;
-        try {
-            String timeLog = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-
-            dailySystemStatusWriter = new BufferedWriter(new FileWriter(timeLog + ".txt"));
-
-            readLogFile();
-
-            for (Map.Entry<Item, Integer> entry : itemsMap.entrySet()) {
-                dailySystemStatusWriter.write("Item-ul " + entry.getKey().getName() + " a fost achizitionat astazi de " + entry.getValue() + " ori. " + System.lineSeparator());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                dailySystemStatusWriter.close();
-            } catch (Exception e) {
-            }
-        }
-    }
+//    public Set<String> findDuplicates(List<Item> listContainingDuplicates)
+//    {
+//        Set<String> setToReturn = new HashSet();
+//
+//        for (Item item : listContainingDuplicates)
+//        {
+//            setToReturn.add(item.getName());
+//        }
+//
+//
+//        return setToReturn;
+//    }
+//
+//    public void readLogFile(){
+//
+//        List<Item> itemsExtractedFromLogFile = new ArrayList<>();
+//
+//        BufferedReader reader = null;
+//        try{
+//            reader = new BufferedReader(new FileReader(file));
+//
+//            String line;
+//            Item newItemExtracted;
+//            String[] itemsOfCurrentLine;
+//            int lineNumber = 1;
+//
+//            while ((line = reader.readLine()) != null){
+//
+//                if(lineNumber%11 != 1) {
+//                    System.out.println("Line no: " + lineNumber);
+//                    itemsOfCurrentLine = line.split(" ");
+//                    newItemExtracted = new Item();
+//
+//                    newItemExtracted.setName(itemsOfCurrentLine[1]);
+//
+//                    itemsExtractedFromLogFile.add(newItemExtracted);
+//                }
+//                else
+//                {
+//                    System.out.println("Procesare coada de 10 msg");
+//                }
+//
+//                lineNumber++;
+//            }
+//
+//            System.out.println("itemsFromLogFIle: " + itemsExtractedFromLogFile.size());
+//
+//            Set<String> distinctItems = findDuplicates(itemsExtractedFromLogFile);
+//
+//            System.out.println("distinctItems no: "+distinctItems.size());
+//
+//            for(String distinctItem: distinctItems){
+//
+//                System.out.println("Distinct item: "+distinctItem);
+//                int number = 0;
+//                for(Item item: itemsExtractedFromLogFile){
+//                    if(item.getName().compareTo(distinctItem) == 0)
+//                        number++;
+//                }
+//                itemsMap.put(new Item(distinctItem, 0), number);
+//
+//            }
+//
+//
+//
+//    } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void createDailySystemStatus(){
+//        BufferedWriter dailySystemStatusWriter = null;
+//        try {
+//            String timeLog = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+//
+//            dailySystemStatusWriter = new BufferedWriter(new FileWriter(timeLog + ".txt"));
+//
+//            readLogFile();
+//
+//            for (Map.Entry<Item, Integer> entry : itemsMap.entrySet()) {
+//                dailySystemStatusWriter.write("Item-ul " + entry.getKey().getName() + " a fost achizitionat astazi de " + entry.getValue() + " ori. " + System.lineSeparator());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                dailySystemStatusWriter.close();
+//            } catch (Exception e) {
+//            }
+//        }
+//    }
 }
