@@ -9,18 +9,14 @@ import java.util.Map;
 @Component
 public class Order {
 
-    Map<Item, Integer> orderMap;
     Date orderDate;
     Customer customer;
+    public static Long id = 0l;
 
     public Order(Customer customer) {
-        orderMap = new HashMap<>();
+        this.id = this.id + 1;
         orderDate = new Date();
         this.customer = customer;
-    }
-
-    public Map<Item, Integer> getOrderMap() {
-        return orderMap;
     }
 
     public Date getOrderDate() {
@@ -31,14 +27,14 @@ public class Order {
         return customer;
     }
 
-    public void addNewItemToOrder(Item item){
-        Integer currentValue =0;
-
-        if (orderMap.get(item) != null)
-            currentValue = orderMap.get(item);
-
-        orderMap.put(item, currentValue + 1);
-
-    }
+//    public void addNewItemToOrder(Item item){
+//        Integer currentValue =0;
+//
+//        if (orderMap.get(item) != null)
+//            currentValue = orderMap.get(item);
+//
+//        orderMap.put(item, currentValue + 1);
+//
+//    }
 
 }

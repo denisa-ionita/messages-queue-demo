@@ -8,37 +8,24 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 @Service
 public class ItemService {
 
-    Order order;
-    List<Item> itemList;
     Queue<Item> itemsQueue;
+    public Map<Long, List<Item>> orderMap;
+
     @Autowired
     LogFileService logFileService;
 
     public ItemService(){
-        itemList = new ArrayList<>();
         itemsQueue = new LinkedList<>();
     }
 
-    public void processRequest(Customer customer, String itemName, double itemPrice){
+    public void processRequest(String itemName, double itemPrice, Long orderId){
 
-        Item item = new Item(itemName, itemPrice);
-
-        processOrder(customer, item);
-    }
-
-    public void processOrder(Customer customer, Item item){
-        if(order.getCustomer().getName().compareTo(customer.getName()) == 1)
-            order = new Order(customer);
-
-        order.addNewItemToOrder(item);
+        Item item = new Item(itemName, itemPrice, orderId);
 
         processQueue(item);
     }
@@ -48,6 +35,25 @@ public class ItemService {
         itemsQueue.add(item);
 
         logFileService.writeLogFile(itemsQueue);
+    }
+
+    public void getOrderMap(){
+
+        List<Item> items;
+
+        for(Item item: itemsQueue){
+
+            if(orderMap.get(item.getOrderId()) == null){
+                items = new ArrayList<>();
+            }
+            else
+            {
+                items = orderMap.get(item.getOrderId());
+            }
+            items.add(item);
+        }
+
+        logFileService.writeOrderMapFileLog(orderMap);
     }
 
 }
