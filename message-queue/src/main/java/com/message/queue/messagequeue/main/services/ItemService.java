@@ -14,7 +14,7 @@ import java.util.*;
 public class ItemService {
 
     Queue<Item> itemsQueue;
-    public Map<Long, List<Item>> orderMap;
+    public static Map<Long, List<Item>> orderMap;
 
     @Autowired
     LogFileService logFileService;
@@ -27,6 +27,7 @@ public class ItemService {
 
         Item item = new Item(itemName, itemPrice, orderId);
 
+        System.out.println(item.toString());
         processQueue(item);
     }
 
@@ -34,6 +35,13 @@ public class ItemService {
 
         itemsQueue.add(item);
 
+        if(itemsQueue.size() == 10){
+            finalizeOrder();
+        }
+
+    }
+
+    public void finalizeOrder(){
         logFileService.writeLogFile(itemsQueue);
     }
 

@@ -52,6 +52,11 @@ public class ItemController {
 
     }
 
+    @PostMapping(path = "/finalizeOrder")
+    public void postFinalizeOrder(){
+        itemService.finalizeOrder();
+    }
+
     @GetMapping(path = "/getOrderMap")
     public void getOrderMap(){
         itemService.getOrderMap();

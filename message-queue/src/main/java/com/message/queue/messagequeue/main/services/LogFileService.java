@@ -1,6 +1,8 @@
 package com.message.queue.messagequeue.main.services;
 
+import com.message.queue.messagequeue.main.components.Customer;
 import com.message.queue.messagequeue.main.components.Item;
+import com.message.queue.messagequeue.main.components.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -14,9 +16,18 @@ public class LogFileService {
 
     Map<Item, Integer> itemsMap;
 
+    StringBuilder stringBuilder;
+
+    Integer counter;
+
+    BufferedWriter writer = null;
+
+
     public LogFileService(){
         file = new File("logFile.txt");
         itemsMap = new HashMap<>();
+        stringBuilder = new StringBuilder();
+        counter = 1;
     }
 
 //    public void writeLogFile(List<Item> items){
@@ -41,40 +52,59 @@ public class LogFileService {
 //    }
 
     public void writeLogFile(Queue<Item> itemsQueue){
-        BufferedWriter writer = null;
-        Integer counter = 0;
-        StringBuilder stringBuilder = null;
+
+        String timeLog = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
         try {
-            String timeLog = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-
             writer = new BufferedWriter(new FileWriter(file, true));
 
-            for(Item item: itemsQueue){
+        System.out.println("Queue current size: " + itemsQueue.size());
+
+            if(counter == 1 ){
+                stringBuilder.append("[" + timeLog + "]" + System.lineSeparator());
+            }
+
+            for(Iterator<Item> it = itemsQueue.iterator(); it.hasNext();){
+
+                Item item = it.next();
 
                 if(counter == 10){
-                    writer.write(stringBuilder.toString());
-                    stringBuilder = null;
+                    try {
+                        System.out.println("Scrie continutul stringbuilder-ului");
+                        writer.write(stringBuilder.toString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    stringBuilder.setLength(0);
                     stringBuilder.append("[" + timeLog + "]" + System.lineSeparator());
-                    counter = 0;
-                    System.out.println("Se scriu 10 msg in fisierul de log-uri.");
+                    counter = 1;
+                    System.out.println("Se scrie colectia de 10 msg in logFile.txt");
                 }
 
-                stringBuilder.append("Item-ul " + item.getName() + " a fost achizitionat la pretul " + item.getPrice() + System.lineSeparator());
+                Order order = OrderService.orderList.get(item.getOrderId().intValue()-1);
+
+                stringBuilder.append("Item-ul " + item.getName().toUpperCase() + " a fost achizitionat la pretul " + item.getPrice() + " in cadrul comenzii " + item.getOrderId() + " de catre " + order.getCustomer().getName() + System.lineSeparator());
                 counter++;
-                itemsQueue.remove();
+                it.remove();
             }
-        } catch (Exception e) {
+
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
                 writer.close();
-            } catch (Exception e) {
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+
+
+
     }
 
     public void writeOrderMapFileLog(Map<Long, List<Item>> orderMap){
+
+
 
     }
 
@@ -153,25 +183,34 @@ public class LogFileService {
 //        }
 //    }
 //
-//    public void createDailySystemStatus(){
-//        BufferedWriter dailySystemStatusWriter = null;
-//        try {
-//            String timeLog = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-//
-//            dailySystemStatusWriter = new BufferedWriter(new FileWriter(timeLog + ".txt"));
-//
+
+    public void generateDailyReport(){
+
+        for(Map.Entry<Long, List<Item>> entry: ItemService.orderMap.entrySet()){
+
+
+        }
+    }
+
+    public void createDailySystemStatus(){
+        BufferedWriter dailySystemStatusWriter = null;
+        try {
+            String timeLog = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+
+            dailySystemStatusWriter = new BufferedWriter(new FileWriter(timeLog + ".txt"));
+
 //            readLogFile();
-//
+
 //            for (Map.Entry<Item, Integer> entry : itemsMap.entrySet()) {
 //                dailySystemStatusWriter.write("Item-ul " + entry.getKey().getName() + " a fost achizitionat astazi de " + entry.getValue() + " ori. " + System.lineSeparator());
 //            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                dailySystemStatusWriter.close();
-//            } catch (Exception e) {
-//            }
-//        }
-//    }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                dailySystemStatusWriter.close();
+            } catch (Exception e) {
+            }
+        }
+    }
 }
