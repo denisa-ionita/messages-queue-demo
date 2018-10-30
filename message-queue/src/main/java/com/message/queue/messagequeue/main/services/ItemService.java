@@ -20,7 +20,9 @@ public class ItemService {
     LogFileService logFileService;
 
     public ItemService(){
+
         itemsQueue = new LinkedList<>();
+        orderMap = new HashMap<>();
     }
 
     public void processRequest(String itemName, double itemPrice, Long orderId){
@@ -34,6 +36,7 @@ public class ItemService {
     public void processQueue(Item item){
 
         itemsQueue.add(item);
+        getOrderMap();
 
         if(itemsQueue.size() == 10){
             finalizeOrder();
@@ -59,9 +62,10 @@ public class ItemService {
                 items = orderMap.get(item.getOrderId());
             }
             items.add(item);
+            orderMap.put(item.getOrderId(), items);
         }
 
-        logFileService.writeOrderMapFileLog(orderMap);
+//        logFileService.writeOrderMapFileLog(orderMap);
     }
 
 }

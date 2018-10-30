@@ -1,8 +1,9 @@
 package com.message.queue.messagequeue.main.services;
 
-import com.message.queue.messagequeue.main.components.Customer;
+import com.message.queue.messagequeue.main.components.DailyReportItem;
 import com.message.queue.messagequeue.main.components.Item;
 import com.message.queue.messagequeue.main.components.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -13,43 +14,20 @@ import java.util.*;
 public class LogFileService {
 
     File file;
-
-    Map<Item, Integer> itemsMap;
-
     StringBuilder stringBuilder;
-
-    Integer counter;
-
     BufferedWriter writer = null;
+
+    List<DailyReportItem> dailyReportItemsList;
+
+    @Autowired
+    ItemService itemService;
 
 
     public LogFileService(){
         file = new File("logFile.txt");
-        itemsMap = new HashMap<>();
         stringBuilder = new StringBuilder();
-        counter = 1;
+        dailyReportItemsList = new ArrayList<>();
     }
-
-//    public void writeLogFile(List<Item> items){
-//        BufferedWriter writer = null;
-//        try {
-//            String timeLog = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-//
-//            writer = new BufferedWriter(new FileWriter(file, true));
-//
-//            writer.write("[" + timeLog + "]" + System.lineSeparator());
-//            for(Item item: items){
-//                writer.write("Item-ul " + item.getName() + " a fost achizitionat " + System.lineSeparator());
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                writer.close();
-//            } catch (Exception e) {
-//            }
-//        }
-//    }
 
     public void writeLogFile(Queue<Item> itemsQueue){
 
@@ -60,32 +38,27 @@ public class LogFileService {
 
         System.out.println("Queue current size: " + itemsQueue.size());
 
-            if(counter == 1 ){
+            if(itemsQueue.size() == 10){
                 stringBuilder.append("[" + timeLog + "]" + System.lineSeparator());
-            }
 
-            for(Iterator<Item> it = itemsQueue.iterator(); it.hasNext();){
+                for(Iterator<Item> it = itemsQueue.iterator(); it.hasNext();){
 
-                Item item = it.next();
+                    Item item = it.next();
 
-                if(counter == 10){
-                    try {
-                        System.out.println("Scrie continutul stringbuilder-ului");
-                        writer.write(stringBuilder.toString());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    stringBuilder.setLength(0);
-                    stringBuilder.append("[" + timeLog + "]" + System.lineSeparator());
-                    counter = 1;
-                    System.out.println("Se scrie colectia de 10 msg in logFile.txt");
+                    Order order = OrderService.orderList.get(item.getOrderId().intValue()-1);
+
+                    stringBuilder.append("Item-ul " + item.getName().toUpperCase() + " a fost achizitionat la pretul " + item.getPrice() + " in cadrul comenzii " + item.getOrderId() + " de catre " + order.getCustomer().getName() + System.lineSeparator());
+
+                    it.remove();
                 }
 
-                Order order = OrderService.orderList.get(item.getOrderId().intValue()-1);
-
-                stringBuilder.append("Item-ul " + item.getName().toUpperCase() + " a fost achizitionat la pretul " + item.getPrice() + " in cadrul comenzii " + item.getOrderId() + " de catre " + order.getCustomer().getName() + System.lineSeparator());
-                counter++;
-                it.remove();
+                try {
+                    System.out.println("Write details to logFile.txt  ...");
+                    writer.write(stringBuilder.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                stringBuilder.setLength(0);
             }
 
         } catch (IOException e) {
@@ -97,113 +70,71 @@ public class LogFileService {
                 e.printStackTrace();
             }
         }
+    }
 
 
+    public void createOrReplaceDailyReportItem(Item item){
+
+        if(dailyReportItemsList.size() > 0){
+
+            for(DailyReportItem dailyReportItem: dailyReportItemsList){
+//            for(Iterator<DailyReportItem> it = dailyReportItemsList.iterator(); it.hasNext();){
+//                DailyReportItem dailyReportItem = it.next();
+
+                if(dailyReportItem.getItem().getName().compareTo(item.getName()) == 0 && dailyReportItem.getItem().getPrice() == item.getPrice()){
+
+                    int indexOfCurrentItem = dailyReportItemsList.indexOf(dailyReportItem);
+                    System.out.println("indexOfCurrentItem: "+indexOfCurrentItem);
+//                    System.out.println(dailyReportItemsList.get(indexOfCurrentItem + 1));
+                    dailyReportItem.setNoItems(dailyReportItem.getNoItems() + 1);
+
+                    dailyReportItemsList.set(indexOfCurrentItem, dailyReportItem);
+
+//                    dailyReportItemsList.set(dailyReportItemsList.indexOf(dailyReportItem), dailyReportItem.setNoItems(dailyReportItem.getNoItems() + 1));
+                    System.out.println("Modifica counter");
+                }
+                else{
+                    dailyReportItemsList.add(new DailyReportItem(item, 1));
+                    System.out.println("else clause in createOrReplaceDailyReportItem ");
+                }
+            }
+        }
+        else{
+            dailyReportItemsList.add(new DailyReportItem(item, 1));
+        }
 
     }
 
-    public void writeOrderMapFileLog(Map<Long, List<Item>> orderMap){
 
-
-
-    }
-
-    // to be updated
-
-
-//    public Set<String> findDuplicates(List<Item> listContainingDuplicates)
-//    {
-//        Set<String> setToReturn = new HashSet();
-//
-//        for (Item item : listContainingDuplicates)
-//        {
-//            setToReturn.add(item.getName());
-//        }
-//
-//
-//        return setToReturn;
-//    }
-//
-//    public void readLogFile(){
-//
-//        List<Item> itemsExtractedFromLogFile = new ArrayList<>();
-//
-//        BufferedReader reader = null;
-//        try{
-//            reader = new BufferedReader(new FileReader(file));
-//
-//            String line;
-//            Item newItemExtracted;
-//            String[] itemsOfCurrentLine;
-//            int lineNumber = 1;
-//
-//            while ((line = reader.readLine()) != null){
-//
-//                if(lineNumber%11 != 1) {
-//                    System.out.println("Line no: " + lineNumber);
-//                    itemsOfCurrentLine = line.split(" ");
-//                    newItemExtracted = new Item();
-//
-//                    newItemExtracted.setName(itemsOfCurrentLine[1]);
-//
-//                    itemsExtractedFromLogFile.add(newItemExtracted);
-//                }
-//                else
-//                {
-//                    System.out.println("Procesare coada de 10 msg");
-//                }
-//
-//                lineNumber++;
-//            }
-//
-//            System.out.println("itemsFromLogFIle: " + itemsExtractedFromLogFile.size());
-//
-//            Set<String> distinctItems = findDuplicates(itemsExtractedFromLogFile);
-//
-//            System.out.println("distinctItems no: "+distinctItems.size());
-//
-//            for(String distinctItem: distinctItems){
-//
-//                System.out.println("Distinct item: "+distinctItem);
-//                int number = 0;
-//                for(Item item: itemsExtractedFromLogFile){
-//                    if(item.getName().compareTo(distinctItem) == 0)
-//                        number++;
-//                }
-//                itemsMap.put(new Item(distinctItem, 0), number);
-//
-//            }
-//
-//
-//
-//    } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-
-    public void generateDailyReport(){
+    public void generateDailyReportItemList(){
 
         for(Map.Entry<Long, List<Item>> entry: ItemService.orderMap.entrySet()){
 
+            for(Item item: entry.getValue()){
 
+                System.out.println("generateDailyReportItemList " + item.getName());
+               createOrReplaceDailyReportItem(item);
+            }
         }
+
     }
 
     public void createDailySystemStatus(){
+
+        generateDailyReportItemList();
+
         BufferedWriter dailySystemStatusWriter = null;
         try {
             String timeLog = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 
             dailySystemStatusWriter = new BufferedWriter(new FileWriter(timeLog + ".txt"));
 
-//            readLogFile();
+            System.out.println("DailyReportItemsList size: " + dailyReportItemsList.size());
 
-//            for (Map.Entry<Item, Integer> entry : itemsMap.entrySet()) {
-//                dailySystemStatusWriter.write("Item-ul " + entry.getKey().getName() + " a fost achizitionat astazi de " + entry.getValue() + " ori. " + System.lineSeparator());
-//            }
+            for(DailyReportItem item: dailyReportItemsList){
+                dailySystemStatusWriter.write(item.getItem().toString() + " a fost achizitionat astazi de " + item.getNoItems() + " ori => Valoare totala: " + item.getItem().getPrice()*item.getNoItems() + System.lineSeparator());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
