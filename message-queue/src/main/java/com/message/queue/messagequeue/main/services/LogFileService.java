@@ -77,15 +77,15 @@ public class LogFileService {
 
         if(dailyReportItemsList.size() > 0){
 
-            for(DailyReportItem dailyReportItem: dailyReportItemsList){
+            ListIterator<DailyReportItem> it = dailyReportItemsList.listIterator(dailyReportItemsList.size());
+            while(it.hasNext()){
+                DailyReportItem dailyReportItem = it.next();
 
-                if(dailyReportItem.getItem().getName().compareTo(item.getName()) == 0 && dailyReportItem.getItem().getPrice() == item.getPrice()){
-
-                    int indexOfCurrentItem = dailyReportItemsList.indexOf(dailyReportItem);
+                if(dailyReportItem.getItem().equals(item)){
 
                     dailyReportItem.setNoItems(dailyReportItem.getNoItems() + 1);
 
-                    dailyReportItemsList.set(indexOfCurrentItem, dailyReportItem);
+                    it.set(dailyReportItem);
 
                 }
                 else{
@@ -105,9 +105,6 @@ public class LogFileService {
         for(Map.Entry<Long, List<Item>> entry: ItemService.orderMap.entrySet()){
 
             for(Item item: entry.getValue()){
-
-                System.out.println("generateDailyReportItemList " + item.getName() + " " + item.getPrice());
-
                 createOrReplaceDailyReportItem(item);
             }
         }

@@ -38,8 +38,7 @@ public class DailyReportItem {
 
         DailyReportItem currentObj = (DailyReportItem) obj;
 
-        return  this.getItem().getName().compareTo(currentObj.getItem().getName()) == 0 &&
-                this.getItem().getPrice() == currentObj.getItem().getPrice();
+        return this.getItem().equals(currentObj.getItem());
     }
 
     @Override

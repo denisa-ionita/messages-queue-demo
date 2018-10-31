@@ -52,4 +52,12 @@ public class Item {
                 ", orderId=" + orderId +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Item item = (Item) obj;
+
+        return  this.getName().compareTo(item.getName()) == 0 &&
+                this.getPrice() == item.getPrice();
+    }
 }
