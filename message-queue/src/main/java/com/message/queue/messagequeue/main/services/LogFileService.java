@@ -78,24 +78,18 @@ public class LogFileService {
         if(dailyReportItemsList.size() > 0){
 
             for(DailyReportItem dailyReportItem: dailyReportItemsList){
-//            for(Iterator<DailyReportItem> it = dailyReportItemsList.iterator(); it.hasNext();){
-//                DailyReportItem dailyReportItem = it.next();
 
                 if(dailyReportItem.getItem().getName().compareTo(item.getName()) == 0 && dailyReportItem.getItem().getPrice() == item.getPrice()){
 
                     int indexOfCurrentItem = dailyReportItemsList.indexOf(dailyReportItem);
-                    System.out.println("indexOfCurrentItem: "+indexOfCurrentItem);
-//                    System.out.println(dailyReportItemsList.get(indexOfCurrentItem + 1));
+
                     dailyReportItem.setNoItems(dailyReportItem.getNoItems() + 1);
 
                     dailyReportItemsList.set(indexOfCurrentItem, dailyReportItem);
 
-//                    dailyReportItemsList.set(dailyReportItemsList.indexOf(dailyReportItem), dailyReportItem.setNoItems(dailyReportItem.getNoItems() + 1));
-                    System.out.println("Modifica counter");
                 }
                 else{
                     dailyReportItemsList.add(new DailyReportItem(item, 1));
-                    System.out.println("else clause in createOrReplaceDailyReportItem ");
                 }
             }
         }
@@ -112,8 +106,9 @@ public class LogFileService {
 
             for(Item item: entry.getValue()){
 
-                System.out.println("generateDailyReportItemList " + item.getName());
-               createOrReplaceDailyReportItem(item);
+                System.out.println("generateDailyReportItemList " + item.getName() + " " + item.getPrice());
+
+                createOrReplaceDailyReportItem(item);
             }
         }
 
