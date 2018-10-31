@@ -23,29 +23,29 @@ public class LogFileService {
     ItemService itemService;
 
 
-    public LogFileService(){
+    public LogFileService() {
         file = new File("logFile.txt");
         stringBuilder = new StringBuilder();
         dailyReportItemsList = new ArrayList<>();
     }
 
-    public void writeLogFile(Queue<Item> itemsQueue){
+    public void writeLogFile(Queue<Item> itemsQueue) {
 
         String timeLog = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
         try {
             writer = new BufferedWriter(new FileWriter(file, true));
 
-        System.out.println("Queue current size: " + itemsQueue.size());
+            System.out.println("Queue current size: " + itemsQueue.size());
 
-            if(itemsQueue.size() == 10){
+            if (itemsQueue.size() == 10) {
                 stringBuilder.append("[" + timeLog + "]" + System.lineSeparator());
 
-                for(Iterator<Item> it = itemsQueue.iterator(); it.hasNext();){
+                for (Iterator<Item> it = itemsQueue.iterator(); it.hasNext(); ) {
 
                     Item item = it.next();
 
-                    Order order = OrderService.orderList.get(item.getOrderId().intValue()-1);
+                    Order order = OrderService.orderList.get(item.getOrderId().intValue() - 1);
 
                     stringBuilder.append("Item-ul " + item.getName().toUpperCase() + " a fost achizitionat la pretul " + item.getPrice() + " in cadrul comenzii " + item.getOrderId() + " de catre " + order.getCustomer().getName() + System.lineSeparator());
 
@@ -73,45 +73,43 @@ public class LogFileService {
     }
 
 
-    public void createOrReplaceDailyReportItem(Item item){
+    public void createOrReplaceDailyReportItem(Item item) {
 
-        if(dailyReportItemsList.size() > 0){
 
-            ListIterator<DailyReportItem> it = dailyReportItemsList.listIterator(dailyReportItemsList.size());
-            while(it.hasNext()){
+        ListIterator<DailyReportItem> it = dailyReportItemsList.listIterator();
+
+        if (!dailyReportItemsList.contains(new DailyReportItem(item, 1)) || dailyReportItemsList.size() == 0) {
+            dailyReportItemsList.add(new DailyReportItem(item, 1));
+        } else {
+            while (it.hasNext()) {
                 DailyReportItem dailyReportItem = it.next();
 
-                if(dailyReportItem.getItem().equals(item)){
+                if (dailyReportItem.getItem().equals(item)) {
 
                     dailyReportItem.setNoItems(dailyReportItem.getNoItems() + 1);
 
-                    it.set(dailyReportItem);
-
-                }
-                else{
-                    dailyReportItemsList.add(new DailyReportItem(item, 1));
+//                    it.set(dailyReportItem);
+                    break;
                 }
             }
-        }
-        else{
-            dailyReportItemsList.add(new DailyReportItem(item, 1));
-        }
 
+
+        }
     }
 
 
-    public void generateDailyReportItemList(){
+    public void generateDailyReportItemList() {
 
-        for(Map.Entry<Long, List<Item>> entry: ItemService.orderMap.entrySet()){
+        for (Map.Entry<Long, List<Item>> entry : ItemService.orderMap.entrySet()) {
 
-            for(Item item: entry.getValue()){
+            for (Item item : entry.getValue()) {
                 createOrReplaceDailyReportItem(item);
             }
         }
 
     }
 
-    public void createDailySystemStatus(){
+    public void createDailySystemStatus() {
 
         generateDailyReportItemList();
 
@@ -123,8 +121,8 @@ public class LogFileService {
 
             System.out.println("DailyReportItemsList size: " + dailyReportItemsList.size());
 
-            for(DailyReportItem item: dailyReportItemsList){
-                dailySystemStatusWriter.write(item.getItem().toString() + " a fost achizitionat astazi de " + item.getNoItems() + " ori => Valoare totala: " + item.getItem().getPrice()*item.getNoItems() + System.lineSeparator());
+            for (DailyReportItem item : dailyReportItemsList) {
+                dailySystemStatusWriter.write(item.getItem().toString() + " a fost achizitionat astazi de " + item.getNoItems() + " ori => Valoare totala: " + item.getItem().getPrice() * item.getNoItems() + System.lineSeparator());
             }
 
         } catch (Exception e) {

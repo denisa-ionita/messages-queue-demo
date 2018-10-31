@@ -57,11 +57,6 @@ public class ItemController {
         itemService.finalizeOrder();
     }
 
-    @GetMapping(path = "/getOrderMap")
-    public void getOrderMap(){
-        itemService.getOrderMap();
-    }
-
     @GetMapping(path = "/dailyStatus")
     public void writeDailyStatus(){
         automatedProcess = new AutomatedProcess();

@@ -2,6 +2,8 @@ package com.message.queue.messagequeue.main.components;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 public class DailyReportItem {
 
@@ -34,11 +36,17 @@ public class DailyReportItem {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DailyReportItem that = (DailyReportItem) o;
+        return Objects.equals(item, that.item);
+    }
 
-        DailyReportItem currentObj = (DailyReportItem) obj;
+    @Override
+    public int hashCode() {
 
-        return this.getItem().equals(currentObj.getItem());
+        return Objects.hash(item);
     }
 
     @Override

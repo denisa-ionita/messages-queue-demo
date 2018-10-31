@@ -19,13 +19,13 @@ public class ItemService {
     @Autowired
     LogFileService logFileService;
 
-    public ItemService(){
+    public ItemService() {
 
         itemsQueue = new LinkedList<>();
         orderMap = new HashMap<>();
     }
 
-    public void processRequest(String itemName, double itemPrice, Long orderId){
+    public void processRequest(String itemName, double itemPrice, Long orderId) {
 
         Item item = new Item(itemName, itemPrice, orderId);
 
@@ -33,38 +33,32 @@ public class ItemService {
         processQueue(item);
     }
 
-    public void processQueue(Item item){
+    public void processQueue(Item item) {
 
         itemsQueue.add(item);
-        getOrderMap();
+        addToOrderMap(item);
 
-        if(itemsQueue.size() == 10){
+        if (itemsQueue.size() == 10) {
             finalizeOrder();
         }
 
     }
 
-    public void finalizeOrder(){
+    public void finalizeOrder() {
         logFileService.writeLogFile(itemsQueue);
     }
 
-    public void getOrderMap(){
+    public void addToOrderMap(Item item) {
 
         List<Item> items;
 
-        for(Item item: itemsQueue){
-
-            if(orderMap.get(item.getOrderId()) == null){
-                items = new ArrayList<>();
-            }
-            else
-            {
-                items = orderMap.get(item.getOrderId());
-            }
-            items.add(item);
-            orderMap.put(item.getOrderId(), items);
+        if (orderMap.get(item.getOrderId()) == null) {
+            items = new ArrayList<>();
+        } else {
+            items = orderMap.get(item.getOrderId());
         }
-
+        items.add(item);
+        orderMap.put(item.getOrderId(), items);
 //        logFileService.writeOrderMapFileLog(orderMap);
     }
 
