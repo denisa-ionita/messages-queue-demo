@@ -1,5 +1,6 @@
 package com.message.queue.messagequeue.main.components;
 
+import com.message.queue.messagequeue.main.entities.Item;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;

@@ -1,13 +1,9 @@
 package com.message.queue.messagequeue.main.services;
 
-import com.message.queue.messagequeue.main.components.Customer;
-import com.message.queue.messagequeue.main.components.Item;
-import com.message.queue.messagequeue.main.components.Order;
+import com.message.queue.messagequeue.main.entities.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -27,7 +23,8 @@ public class ItemService {
 
     public void processRequest(String itemName, double itemPrice, Long orderId) {
 
-        Item item = new Item(itemName, itemPrice, orderId);
+//        Item item = new Item(itemName, itemPrice, orderId);
+        Item item = new Item(itemName, itemPrice);
 
         System.out.println(item.toString());
         processQueue(item);
@@ -52,13 +49,13 @@ public class ItemService {
 
         List<Item> items;
 
-        if (orderMap.get(item.getOrderId()) == null) {
+        if (orderMap.get(item.getCurrentOrder().getOrderId()) == null) {
             items = new ArrayList<>();
         } else {
-            items = orderMap.get(item.getOrderId());
+            items = orderMap.get(item.getCurrentOrder().getOrderId());
         }
         items.add(item);
-        orderMap.put(item.getOrderId(), items);
+        orderMap.put(item.getCurrentOrder().getOrderId(), items);
 //        logFileService.writeOrderMapFileLog(orderMap);
     }
 

@@ -1,8 +1,8 @@
 package com.message.queue.messagequeue.main.services;
 
 import com.message.queue.messagequeue.main.components.DailyReportItem;
-import com.message.queue.messagequeue.main.components.Item;
-import com.message.queue.messagequeue.main.components.Order;
+import com.message.queue.messagequeue.main.entities.Item;
+import com.message.queue.messagequeue.main.entities.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,9 +45,9 @@ public class LogFileService {
 
                     Item item = it.next();
 
-                    Order order = OrderService.orderList.get(item.getOrderId().intValue() - 1);
+                    Order order = OrderService.orderList.get(item.getCurrentOrder().getOrderId().intValue() - 1);
 
-                    stringBuilder.append("Item-ul " + item.getName().toUpperCase() + " a fost achizitionat la pretul " + item.getPrice() + " in cadrul comenzii " + item.getOrderId() + " de catre " + order.getCustomer().getName() + System.lineSeparator());
+                    stringBuilder.append("Item-ul " + item.getName().toUpperCase() + " a fost achizitionat la pretul " + item.getPrice() + " in cadrul comenzii " + item.getCurrentOrder().getOrderId() + " de catre " + order.getCurrentCustomer().getName() + System.lineSeparator());
 
                     it.remove();
                 }

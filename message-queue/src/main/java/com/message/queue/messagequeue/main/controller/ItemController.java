@@ -1,9 +1,8 @@
 package com.message.queue.messagequeue.main.controller;
 
 import com.message.queue.messagequeue.main.components.AutomatedProcess;
-import com.message.queue.messagequeue.main.components.Customer;
-import com.message.queue.messagequeue.main.components.Item;
-import com.message.queue.messagequeue.main.components.Order;
+import com.message.queue.messagequeue.main.entities.Customer;
+import com.message.queue.messagequeue.main.entities.Order;
 import com.message.queue.messagequeue.main.services.ItemService;
 import com.message.queue.messagequeue.main.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
