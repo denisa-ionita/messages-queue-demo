@@ -1,6 +1,7 @@
 package com.message.queue.messagequeue.main.services;
 
 import com.message.queue.messagequeue.main.entities.Item;
+import com.message.queue.messagequeue.main.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ public class ItemService {
 
     @Autowired
     LogFileService logFileService;
+
+    @Autowired
+    ItemRepository itemRepository;
 
     public ItemService() {
 
