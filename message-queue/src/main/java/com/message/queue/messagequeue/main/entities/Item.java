@@ -7,14 +7,14 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "item_id")
+    @Column(name = "id")
     private Long itemId;
 
     private String name;
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "ID")
     private Order currentOrder;
 
     public  Item()

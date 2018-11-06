@@ -3,20 +3,20 @@ package com.message.queue.messagequeue.main.entities;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
+@Table(name = "orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "order_id")
+    @Column(name = "id")
     private Long orderId;
 
     private Date orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "ID")
     private Customer currentCustomer;
 //
 //    @OneToMany(mappedBy = "currentOrder", cascade = CascadeType.ALL)
@@ -63,4 +63,6 @@ public class Order {
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
+
+
 }
