@@ -3,6 +3,7 @@ package com.message.queue.messagequeue.main.entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "items")
 public class Item {
 
     @Id
@@ -43,14 +44,6 @@ public class Item {
         this.price = price;
     }
 
-//    public Long getOrderId() {
-//        return orderId;
-//    }
-//
-//    public void setOrderId(Long orderId) {
-//        this.orderId = orderId;
-//    }
-
     @Override
     public String toString() {
         return "Item{" +
@@ -82,4 +75,5 @@ public class Item {
     public void setCurrentOrder(Order currentOrder) {
         this.currentOrder = currentOrder;
     }
+
 }

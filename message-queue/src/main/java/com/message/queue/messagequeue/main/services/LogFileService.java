@@ -45,7 +45,10 @@ public class LogFileService {
 
                     Item item = it.next();
 
-                    Order order = OrderService.orderList.get(item.getCurrentOrder().getOrderId().intValue() - 1);
+//                    Order order = OrderService.orderList.get(item.getCurrentOrder().getOrderId().intValue() - 1);
+
+                    //????
+                    Order order = item.getCurrentOrder();
 
                     stringBuilder.append("Item-ul " + item.getName().toUpperCase() + " a fost achizitionat la pretul " + item.getPrice() + " in cadrul comenzii " + item.getCurrentOrder().getOrderId() + " de catre " + order.getCurrentCustomer().getName() + System.lineSeparator());
 
@@ -98,20 +101,20 @@ public class LogFileService {
     }
 
 
-    public void generateDailyReportItemList() {
-
-        for (Map.Entry<Long, List<Item>> entry : ItemService.orderMap.entrySet()) {
-
-            for (Item item : entry.getValue()) {
-                createOrReplaceDailyReportItem(item);
-            }
-        }
-
-    }
+//    public void generateDailyReportItemList() {
+//
+//        for (Map.Entry<Long, List<Item>> entry : ItemService.orderMap.entrySet()) {
+//
+//            for (Item item : entry.getValue()) {
+//                createOrReplaceDailyReportItem(item);
+//            }
+//        }
+//
+//    }
 
     public void createDailySystemStatus() {
 
-        generateDailyReportItemList();
+//        generateDailyReportItemList();
 
         BufferedWriter dailySystemStatusWriter = null;
         try {

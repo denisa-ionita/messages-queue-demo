@@ -5,6 +5,7 @@ import com.message.queue.messagequeue.main.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class CustomerService {
     CustomerRepository customerRepository;
 
     public CustomerService(){
-        customers = customerRepository.findAll();
+        customers = new ArrayList<>();
     }
 
     public Long getCustomerId(Customer customer){
@@ -45,5 +46,9 @@ public class CustomerService {
         }
 
         return isFound;
+    }
+
+    public List<Customer> getAllCustomers(){
+        return customerRepository.findAll();
     }
 }

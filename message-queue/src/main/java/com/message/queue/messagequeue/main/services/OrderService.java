@@ -15,17 +15,13 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    static List<Order> orderList;
+//    List<Order> orderList;
 
     @Autowired
     ItemRepository itemRepository;
 
     @Autowired
     OrderRepository orderRepository;
-
-    public OrderService(){
-        orderList = orderRepository.findAll();
-    }
 
     public List<Item> getItemsOfSpecifiedOrder(Long id){
         return itemRepository.getAllByCurrentOrderOrderId(id);
@@ -35,9 +31,12 @@ public class OrderService {
 
         Order order = new Order(customer);
         orderRepository.save(order);
-        orderList.add(order);
+//        orderList.add(order);
 
         return order;
     }
 
+    public List<Order> getAllOrders(){
+        return  orderRepository.findAll();
+    }
 }

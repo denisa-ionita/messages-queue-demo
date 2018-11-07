@@ -11,7 +11,7 @@ import java.util.*;
 public class ItemService {
 
     Queue<Item> itemsQueue;
-    public static Map<Long, List<Item>> orderMap;
+//    public static Map<Long, List<Item>> orderMap;
 
     @Autowired
     LogFileService logFileService;
@@ -22,7 +22,7 @@ public class ItemService {
     public ItemService() {
 
         itemsQueue = new LinkedList<>();
-        orderMap = new HashMap<>();
+//        orderMap = new HashMap<>();
     }
 
     public void processRequest(String itemName, double itemPrice, Long orderId) {
@@ -30,14 +30,16 @@ public class ItemService {
 //        Item item = new Item(itemName, itemPrice, orderId);
         Item item = new Item(itemName, itemPrice);
 
-        System.out.println(item.toString());
+        itemRepository.save(item);
+
+//        System.out.println(item.toString());
         processQueue(item);
     }
 
     public void processQueue(Item item) {
 
         itemsQueue.add(item);
-        addToOrderMap(item);
+//        addToOrderMap(item);
 
         if (itemsQueue.size() == 10) {
             finalizeOrder();
@@ -49,18 +51,22 @@ public class ItemService {
         logFileService.writeLogFile(itemsQueue);
     }
 
-    public void addToOrderMap(Item item) {
+//    public void addToOrderMap(Item item) {
+//
+//        List<Item> items;
+//
+//        if (orderMap.get(item.getCurrentOrder().getOrderId()) == null) {
+//            items = new ArrayList<>();
+//        } else {
+//            items = orderMap.get(item.getCurrentOrder().getOrderId());
+//        }
+//        items.add(item);
+//        orderMap.put(item.getCurrentOrder().getOrderId(), items);
+////        logFileService.writeOrderMapFileLog(orderMap);
+//    }
 
-        List<Item> items;
-
-        if (orderMap.get(item.getCurrentOrder().getOrderId()) == null) {
-            items = new ArrayList<>();
-        } else {
-            items = orderMap.get(item.getCurrentOrder().getOrderId());
-        }
-        items.add(item);
-        orderMap.put(item.getCurrentOrder().getOrderId(), items);
-//        logFileService.writeOrderMapFileLog(orderMap);
+    public List<Item> getAllItems(){
+        return itemRepository.findAll();
     }
 
 }

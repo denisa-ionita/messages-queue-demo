@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "customers")
 public class Customer {
 
     @Id
@@ -15,8 +16,8 @@ public class Customer {
     private String name;
     private Date birthday;
 
-//    @OneToMany(mappedBy = "currentCustomer", cascade = CascadeType.ALL)
-//    private List<Order> orderList;
+    @OneToMany(mappedBy = "currentCustomer", cascade = CascadeType.ALL)
+    private List<Order> orderList;
 
     public Customer() {
     }
@@ -50,11 +51,11 @@ public class Customer {
         this.customerId = customerId;
     }
 
-//    public List<Order> getOrderList() {
-//        return orderList;
-//    }
-//
-//    public void setOrderList(List<Order> orderList) {
-//        this.orderList = orderList;
-//    }
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
 }
